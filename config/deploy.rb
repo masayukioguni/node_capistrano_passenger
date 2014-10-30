@@ -1,7 +1,7 @@
 # config valid only for Capistrano 3.1
 lock '3.2.1'
 
-set :application, 'my_app_name'
+set :application, 'node_capstrano_passenger_demo'
 set :repo_url, 'git@example.com:me/my_repo.git'
 
 # Default branch is :master
@@ -46,6 +46,13 @@ namespace :deploy do
 
   after :publishing, :restart
 
+  desc 'Rebuild modules using npm rebuild'
+  before :updated, :rebuild_npm do
+    on roles(:app) do
+      execute :npm, "rebuild"
+    end
+  end
+  
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
