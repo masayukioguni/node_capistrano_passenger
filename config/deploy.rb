@@ -2,7 +2,8 @@
 lock '3.2.1'
 
 set :application, 'node_capstrano_passenger_demo'
-set :repo_url, 'git@example.com:me/my_repo.git'
+set :repo_url, 'git@github.com:masayukioguni/node_capistrano_passenger.git'
+
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
@@ -34,8 +35,12 @@ set :repo_url, 'git@example.com:me/my_repo.git'
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-set :nvm_type, :user
-set :nvm_node, 'v0.10.21'
+set :nvm_type, :system
+set :nvm_node, 'v0.10.26'
+set :format, :pretty
+set :log_level, :debug # :info or :debug
+
+set :linked_dirs, %w{log node_modules}
 
 namespace :deploy do
 
@@ -48,13 +53,6 @@ namespace :deploy do
   end
 
   after :publishing, :restart
-
-  desc 'Rebuild modules using npm rebuild'
-  before :updated, :rebuild_npm do
-    on roles(:app) do
-      execute :npm, "rebuild"
-    end
-  end
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
