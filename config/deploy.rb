@@ -34,6 +34,9 @@ set :repo_url, 'git@example.com:me/my_repo.git'
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+set :nvm_type, :user
+set :nvm_node, 'v0.10.21'
+
 namespace :deploy do
 
   desc 'Restart application'
@@ -52,7 +55,7 @@ namespace :deploy do
       execute :npm, "rebuild"
     end
   end
-  
+
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
