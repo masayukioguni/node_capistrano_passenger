@@ -35,12 +35,12 @@ set :repo_url, 'git@github.com:masayukioguni/node_capistrano_passenger.git'
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-set :nvm_type, :system
+set :nvm_type, :user
 set :nvm_node, 'v0.10.26'
 set :format, :pretty
 set :log_level, :debug # :info or :debug
 
-set :linked_dirs, %w{log node_modules}
+set :linked_dirs, %w{log node_modules tmp}
 
 namespace :deploy do
 
