@@ -4,9 +4,17 @@
 # is considered to be the first unless any hosts have the primary
 # property set.  Don't declare `role :all`, it's a meta role.
 
-role :app, %w{deploy@example.com}
-role :web, %w{deploy@example.com}
-role :db,  %w{deploy@example.com}
+set :branch, 'master'
+
+SERVER = "root@#{ENV['NODE_PASSENGER_DEV']}"
+
+role :app, SERVER
+role :web, SERVER
+role :db,  SERVER
+
+server ENV['NODE_PASSENGER_DEV'], user: 'root', roles: %w(web app db)
+
+set :deploy_to, "/home/deploy/production"
 
 
 # Extended Server Syntax
