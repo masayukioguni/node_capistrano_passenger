@@ -9,7 +9,7 @@ set :repo_url, 'git@github.com:masayukioguni/node_capistrano_passenger.git'
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
-# set :deploy_to, '/var/www/my_app'
+ set :deploy_to, '/home/deploy/staging/current'
 
 # Default value for :scm is :git
 # set :scm, :git
